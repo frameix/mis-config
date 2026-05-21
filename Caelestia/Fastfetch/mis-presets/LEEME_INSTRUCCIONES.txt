@@ -9,6 +9,40 @@ Es compatible tanto con terminales Kitty como Foot, mezclando
 logos PNG y arte ASCII (.txt).
 
 
+CLONAR DESDE GITHUB
+--------------------------------------------------------------
+Todas las configuraciones están en:
+https://github.com/frameix/mis-config
+
+El repositorio está organizado por entorno. Dentro de
+"Caelestia/" encontrarás subcarpetas con configuraciones
+específicas (como Fastfetch/mis-presets).
+
+
+Clonar solo Caelestia (todas las configs de ese entorno):
+
+   git clone --no-checkout https://github.com/frameix/mis-config.git
+   cd mis-config
+   git sparse-checkout init --cone
+   git sparse-checkout set Caelestia
+   git checkout main
+
+
+Clonar solo Fastfetch (únicamente los presets de fastfetch):
+
+   git clone --no-checkout https://github.com/frameix/mis-config.git
+   cd mis-config
+   git sparse-checkout init --cone
+   git sparse-checkout set Caelestia/Fastfetch
+   git checkout main
+
+
+Una vez clonado, copia "mis-presets" a su ubicación y sigue
+desde la sección 1:
+
+   cp -r mis-config/Caelestia/Fastfetch/mis-presets ~/.local/share/caelestia/fastfetch/
+
+
 ==============================================================
    PREGUNTAS FRECUENTES (FAQ)
 ==============================================================
@@ -188,35 +222,3 @@ con arte ASCII dentro de la carpeta:
 El script los reconocerá y los usará automáticamente.
 
 
-5. CLONAR DESDE GITHUB
---------------------------------------------------------------
-Todas las configuraciones están en:
-https://github.com/frameix/mis-config
-
-El repositorio está organizado por entorno. Dentro de
-"Caelestia/" encontrarás subcarpetas con configuraciones
-específicas (como Fastfetch/mis-presets).
-
-
-Clonar solo Caelestia (todas las configs de ese entorno):
-
-   git clone --no-checkout https://github.com/frameix/mis-config.git
-   cd mis-config
-   git sparse-checkout init --cone
-   git sparse-checkout set Caelestia
-   git checkout main
-
-
-Clonar solo Fastfetch (únicamente los presets de fastfetch):
-
-   git clone --no-checkout https://github.com/frameix/mis-config.git
-   cd mis-config
-   git sparse-checkout init --cone
-   git sparse-checkout set Caelestia/Fastfetch
-   git checkout main
-
-
-Una vez clonado, copia "mis-presets" a su ubicación y sigue
-desde la sección 2:
-
-   cp -r mis-config/Caelestia/Fastfetch/mis-presets ~/.local/share/caelestia/fastfetch/
