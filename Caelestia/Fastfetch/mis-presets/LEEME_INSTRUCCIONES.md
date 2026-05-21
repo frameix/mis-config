@@ -141,3 +141,37 @@ mis-presets/presets/logos/
 ```
 
 El script los reconocerá y los usará automáticamente.
+
+---
+
+## 📥 6. Clonar desde GitHub
+
+Todas las configuraciones están en: **https://github.com/frameix/mis-config**
+
+El repositorio está organizado por entorno. Dentro de `Caelestia/` encontrarás subcarpetas con configuraciones específicas (como `Fastfetch/mis-presets`).
+
+### Clonar solo Caelestia (todas las configs de ese entorno)
+
+```bash
+git clone --no-checkout https://github.com/frameix/mis-config.git
+cd mis-config
+git sparse-checkout init --cone
+git sparse-checkout set Caelestia
+git checkout main
+```
+
+### Clonar solo Fastfetch (únicamente los presets de fastfetch)
+
+```bash
+git clone --no-checkout https://github.com/frameix/mis-config.git
+cd mis-config
+git sparse-checkout init --cone
+git sparse-checkout set Caelestia/Fastfetch
+git checkout main
+```
+
+Una vez clonado, copia `mis-presets` a su ubicación y sigue desde la **sección 2**:
+
+```bash
+cp -r mis-config/Caelestia/Fastfetch/mis-presets ~/.local/share/caelestia/fastfetch/
+```
