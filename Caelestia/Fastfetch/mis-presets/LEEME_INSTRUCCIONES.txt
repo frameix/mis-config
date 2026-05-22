@@ -1,224 +1,215 @@
-==============================================================
-   SISTEMA DINÁMICO DE FASTFETCH - INSTRUCCIONES DE USO
-==============================================================
+================================================================================
+     SISTEMA DINAMICO DE FASTFETCH — INSTRUCCIONES DE USO
+================================================================================
 
-Este directorio ("mis-presets") contiene un sistema autocontenido para 
-hacer tu fastfetch dinámico en Caelestia/Hyprland. 
+Este directorio (mis-presets) contiene un sistema autocontenido para hacer tu
+fastfetch dinamico en Caelestia/Hyprland.
 
-Es compatible tanto con terminales Kitty como Foot, mezclando 
-logos PNG y arte ASCII (.txt).
+Es compatible tanto con terminales Kitty como Foot, mezclando logos PNG y arte
+ASCII (.txt). Ahora soporta MULTIPLES PRESETS (configs .jsonc) que puedes
+alternar con un solo comando.
 
+================================================================================
+                          CLONAR DESDE GITHUB
+================================================================================
 
-CLONAR DESDE GITHUB
---------------------------------------------------------------
-Todas las configuraciones están en:
-https://github.com/frameix/mis-config
+Todas las configuraciones estan en: https://github.com/frameix/mis-config
 
-El repositorio está organizado por entorno. Dentro de
-"Caelestia/" encontrarás subcarpetas con configuraciones
-específicas (como Fastfetch/mis-presets).
+Clonar solo Caelestia:
 
+    git clone --no-checkout https://github.com/frameix/mis-config.git
+    cd mis-config
+    git sparse-checkout init --cone
+    git sparse-checkout set Caelestia
+    git checkout main
 
-Clonar solo Caelestia (todas las configs de ese entorno):
+Clonar solo Fastfetch:
 
-   git clone --no-checkout https://github.com/frameix/mis-config.git
-   cd mis-config
-   git sparse-checkout init --cone
-   git sparse-checkout set Caelestia
-   git checkout main
+    git clone --no-checkout https://github.com/frameix/mis-config.git
+    cd mis-config
+    git sparse-checkout init --cone
+    git sparse-checkout set Caelestia/Fastfetch
+    git checkout main
 
+Una vez clonado, copia mis-presets:
 
-Clonar solo Fastfetch (únicamente los presets de fastfetch):
+    cp -r mis-config/Caelestia/Fastfetch/mis-presets ~/.local/share/caelestia/fastfetch/
 
-   git clone --no-checkout https://github.com/frameix/mis-config.git
-   cd mis-config
-   git sparse-checkout init --cone
-   git sparse-checkout set Caelestia/Fastfetch
-   git checkout main
+================================================================================
+                       PREGUNTAS FRECUENTES (FAQ)
+================================================================================
 
+QUE ARCHIVOS HAY Y QUE HACE CADA UNO:
 
-Una vez clonado, copia "mis-presets" a su ubicación y sigue
-desde la sección 1:
+  preset-f1.jsonc          Preset original de Fastfetch. Define que info se
+                           muestra (OS, CPU, GPU, RAM, etc.) y el diseno visual.
 
-   cp -r mis-config/Caelestia/Fastfetch/mis-presets ~/.local/share/caelestia/fastfetch/
+  caelestia-modify.jsonc   Preset con diseno de recuadro con bordes Unicode.
+                           Muestra info compacta con iconos Nerd Font.
 
+  alterfetch.sh            Lanzador multi-preset. Randomiza el logo y ejecuta
+                           fastfetch. Acepta: nombre, -pN, --list, -h.
 
-==============================================================
-   PREGUNTAS FRECUENTES (FAQ)
-==============================================================
+  randomize.sh             Motor de rotacion. Elige un logo y crea el symlink
+                           current. No muestra nada, solo prepara el logo.
 
-Antes de empezar, aquí tienes un resumen rápido de qué es cada
-archivo y para qué sirve:
+  set_mode.sh              Cambia entre modo aleatorio o fijo para logos.
+                           Guarda en mode.txt. Usa -h para ayuda.
 
+  set_preset.sh            Cambia entre presets (.jsonc). Guarda en preset.txt.
+                           Usa -h para ayuda.
 
-¿QUÉ ARCHIVOS HAY Y QUÉ HACE CADA UNO?
---------------------------------------------------------------
+  greeting_example.fish    Plantilla para integrar con Fish shell.
 
-  main.jsonc             [Configuración principal]
-     Es el archivo de configuración de Fastfetch. Define qué
-     información se muestra (OS, CPU, GPU, RAM, etc.), el
-     diseño visual (bordes, colores, separadores), y de dónde
-     se lee el logo. Fastfetch lee este archivo cada vez que
-     se ejecuta.
+CARPETA presets/:
 
-  alterfetch.sh          [Lanzador manual]
-     Script que randomiza el logo + ejecuta fastfetch de una
-     sola vez. Es lo que se ejecuta cuando escribes "alterfetch"
-     en tu terminal. Ideal para rotar manualmente sin abrir
-     una nueva pestaña.
+  presets/*.jsonc           Los presets. Puede haber tantos como quieras.
+  presets/logos/            Logos: PNG/JPG e imagenes ASCII (.txt).
+  presets/current           Symlink al logo activo (NO tocar manualmente).
+  presets/mode.txt          Modo de logos: random o archivo fijo.
+  presets/preset.txt        Preset activo (ej: preset-f1).
 
-  randomize.sh           [Motor de rotación]
-     Es el cerebro del sistema. Lee el modo actual ("random"
-     o fijo), selecciona un logo de la carpeta logos/, y crea
-     un symlink ("current") apuntando al archivo elegido.
-     NO muestra nada, solo prepara el logo.
-
-  set_mode.sh            [Selector de modo]
-     Te permite cambiar entre modo aleatorio ("random") y modo
-     fijo (un logo específico). Guarda tu elección en mode.txt
-     para que persista entre sesiones.
-
-  greeting_example.fish  [Ejemplo de greeting]
-     Plantilla de ejemplo para integrar el sistema con Fish
-     shell. Cópialo a ~/.config/fish/functions/fish_greeting.fish
-     para que fastfetch se ejecute automáticamente al abrir
-     una terminal.
-
-  LEEME_INSTRUCCIONES    [Este archivo]
-     Documentación completa con las instrucciones de
-     instalación y uso.
-
-
-¿Y LA CARPETA presets/?
---------------------------------------------------------------
-
-  presets/main.jsonc  -> La config principal de fastfetch.
-  presets/logos/      -> Carpeta donde van todos los logos:
-                         imágenes PNG/JPG y arte ASCII (.txt).
-  presets/current     -> Symlink (enlace simbólico) que apunta
-                         al logo activo. Lo genera randomize.sh
-                         automáticamente. NO LO TOQUES.
-  presets/mode.txt    -> Guarda el modo actual ("random" o el
-                         nombre del archivo fijo). Lo gestiona
-                         set_mode.sh.
-
-
-¿CÓMO SE RELACIONAN ENTRE SÍ?
---------------------------------------------------------------
+COMO SE RELACIONAN:
 
   Terminal se abre
-       |
-       v
+      |
+      v
   fish_greeting.fish --> randomize.sh --> Elige logo --> Crea symlink "current"
-       |                                                        |
-       v                                                        |
-  fastfetch --config main.jsonc  <------------------------------+
-       |                            (main.jsonc lee "current")
-       v
-  Muestra tu sistema con el logo elegido
+      |                                                        |
+      v                                                        |
+  Lee preset.txt --> fastfetch --config <preset>.jsonc <--------+
+      |                     (el .jsonc lee "current")
+      v
+  Muestra tu sistema con el logo + preset elegidos
 
+PREGUNTAS RAPIDAS:
 
-PREGUNTAS RÁPIDAS
---------------------------------------------------------------
+  Puedo usar esto sin Fish? Si. Ejecuta ./alterfetch.sh desde Bash/Zsh.
+  Que pasa si borro current/mode.txt/preset.txt? Se recrean solos.
+  Necesito instalar algo extra? Solo fastfetch.
+  Funciona en Kitty y Foot? Si.
 
-  ¿Puedo usar esto sin Fish shell?
-     Sí. Puedes ejecutar ./alterfetch.sh directamente desde
-     Bash/Zsh. Solo el greeting automático requiere Fish.
+================================================================================
+                        1. UBICACION CORRECTA
+================================================================================
 
-  ¿Qué pasa si borro "current" o "mode.txt"?
-     Nada grave. Se recrean solos la próxima vez que ejecutes
-     randomize.sh o set_mode.sh.
+    mkdir -p ~/.local/share/caelestia/fastfetch/
+    cp -r mis-presets ~/.local/share/caelestia/fastfetch/
 
-  ¿Necesito instalar algo extra?
-     Solo necesitas tener fastfetch instalado. Los scripts solo
-     usan herramientas estándar de Linux (bash, find, shuf, ln).
+================================================================================
+                     2. PRUEBA RAPIDA (Sin instalar nada)
+================================================================================
 
-  ¿Funciona en Kitty y Foot?
-     Sí. Los logos PNG se renderizan nativamente en Kitty
-     (protocolo de imágenes) y los ASCII .txt funcionan en
-     ambas terminales.
-
-
-REQUISITO INDISPENSABLE:
---------------------------------------------------------------
-Deberás tener instalado el paquete 'wallust' en el sistema Caelestia.
-Wallust es quien genera la paleta de colores dinámicamente cada 
-vez que el script elige una imagen PNG. Sin él, los colores no cambiarán.
-
-¿CÓMO INSTALAR WALLUST?
-Dependiendo de tu sistema operativo, ejecuta uno de estos comandos:
-
-- Si estás en Arch Linux / Caelestia (vía Pacman):
-  sudo pacman -S wallust
-
-- Si usas un ayudante de AUR (como paru):
-  paru -S wallust
-
-- Alternativa universal (si tienes Rust/Cargo instalado):
-  cargo install wallust
-
-
-1. UBICACIÓN CORRECTA
---------------------------------------------------------------
-Lleva toda esta carpeta ("mis-presets") y ponla en la ruta 
-de Caelestia. 
-
-Puedes hacerlo abriendo una terminal en la misma carpeta donde
-tienes "mis-presets" descargado, y ejecutando estos comandos:
-
-   mkdir -p ~/.local/share/caelestia/fastfetch/
-   cp -r mis-presets ~/.local/share/caelestia/fastfetch/
-
-(Esto creará la carpeta destino si no existe, y copiará todo 
-el contenido de "mis-presets" allí).
-
-
-2. INTEGRACIÓN CON TU TERMINAL (El Greeting)
---------------------------------------------------------------
-Para que todo esto se ejecute automáticamente cada vez que abras 
-un Foot o Kitty, edita tu archivo de saludo de fish:
-
-   Archivo a editar: ~/.config/fish/functions/fish_greeting.fish
-
-Borra o comenta lo que tenga, y pega exactamente esto:
-
-function fish_greeting
     cd ~/.local/share/caelestia/fastfetch/mis-presets/
-    bash randomize.sh
-    fastfetch --config presets/main.jsonc
-    cd ~
-end
+    ./alterfetch.sh               # Logo random + ultimo preset
+    ./alterfetch.sh -p1           # Primer preset
+    ./alterfetch.sh -p2           # Segundo preset
+    ./alterfetch.sh --list        # Ver todos los presets
 
+================================================================================
+               3. INTEGRACION CON TU TERMINAL (El Greeting)
+================================================================================
 
-3. COMANDOS MANUALES GLOBALES (El nuevo alterfetch)
---------------------------------------------------------------
-Para poder rotar el fastfetch desde CUALQUIER lugar (sin tener que 
-entrar a la carpeta) con solo escribir "alterfetch", debes crear una 
-función en tu fish shell.
+Editar: ~/.config/fish/functions/fish_greeting.fish
 
-Abre la terminal y ejecuta este comando para crear la función:
+    function fish_greeting
+        cd ~/.local/share/caelestia/fastfetch/mis-presets/
+        bash randomize.sh
+        set -l preset "preset-f1"
+        if test -f presets/preset.txt
+            set preset (string trim (cat presets/preset.txt))
+        end
+        fastfetch --config "presets/$preset.jsonc"
+        cd ~
+    end
 
-   echo 'function alterfetch; bash ~/.local/share/caelestia/fastfetch/mis-presets/alterfetch.sh; end' > ~/.config/fish/functions/alterfetch.fish
+================================================================================
+                   4. COMANDOS MANUALES GLOBALES
+================================================================================
 
-¡Listo! A partir de ahora, donde sea que estés, abres tu Kitty y 
-escribes `alterfetch`, y cambiará la imagen y recargará los colores.
+Crear funcion para alterfetch:
 
-- ./set_mode.sh random
-  Configura el sistema para que cambie de imagen/ascii automáticamente 
-  cada vez que abres una terminal (modo por defecto).
+    echo 'function alterfetch; bash ~/.local/share/caelestia/fastfetch/mis-presets/alterfetch.sh $argv; end' > ~/.config/fish/functions/alterfetch.fish
 
-- ./set_mode.sh [nombre-archivo]
-  (Ejemplo: ./set_mode.sh 1.png o ./set_mode.sh arch.txt)
-  Fija un logo permanentemente para que no rote.
+USO DE ALTERFETCH:
 
+    alterfetch                     Logo random + ultimo preset usado
+    alterfetch -p1                 Logo random + primer preset (atajo)
+    alterfetch -p2                 Logo random + segundo preset
+    alterfetch caelestia-modify    Logo random + preset por nombre
+    alterfetch --list              Lista presets con su numero -pN
+    alterfetch -h                  Muestra la ayuda
 
-4. CÓMO AGREGAR MÁS LOGOS
---------------------------------------------------------------
-Simplemente arroja tus archivos PNG, JPG o archivos de texto (.txt) 
-con arte ASCII dentro de la carpeta:
+MODOS DE LOGOS (dentro de mis-presets/):
 
-   mis-presets/presets/logos/
+    ./set_mode.sh random           Rota automaticamente (por defecto)
+    ./set_mode.sh 1.png            Fija un logo permanente
+    ./set_mode.sh -h               Ayuda
 
-El script los reconocerá y los usará automáticamente.
+CAMBIAR DE PRESET (dentro de mis-presets/):
 
+    ./set_preset.sh                Muestra preset actual + lista
+    ./set_preset.sh -p1            Fija el primer preset
+    ./set_preset.sh caelestia-modify   Fija por nombre
+    ./set_preset.sh -h             Ayuda
 
+================================================================================
+                      5. COMO AGREGAR MAS LOGOS
+================================================================================
+
+Arroja tus PNG, JPG o .txt con arte ASCII dentro de:
+
+    mis-presets/presets/logos/
+
+El script los reconocera automaticamente.
+
+================================================================================
+                  6. COMO CREAR TUS PROPIOS PRESETS
+================================================================================
+
+REGLA DE ORO: "source": "presets/current"
+
+Toda config .jsonc que agregues DEBE tener esta linea en su seccion de logo:
+
+    "logo": {
+        "source": "presets/current",
+        "type": "auto",
+        ...
+    }
+
+PASO A PASO:
+
+1. Consigue tu config .jsonc (descargada, copiada, o creada desde cero).
+
+2. Modifica SOLO la seccion "logo": cambia "source" a "presets/current":
+
+   ANTES (ruta fija):
+       "source": "/ruta/a/mi/imagen.png"
+
+   DESPUES (compatible con el sistema):
+       "source": "presets/current"
+
+3. No toques nada mas. Los modulos, colores, bordes... dejalo tal cual.
+
+4. Copia el archivo a presets/:
+       cp mi-config.jsonc ~/.local/share/caelestia/fastfetch/mis-presets/presets/
+
+5. Listo! Ya puedes usarla:
+       alterfetch mi-config
+       alterfetch --list      # ver el numero asignado
+       alterfetch -p3         # si es el tercero
+
+ERRORES COMUNES:
+
+  - Poner ruta absoluta en source    --> Usar "presets/current"
+  - Borrar la seccion logo           --> Mantener con source: presets/current
+  - Poner "logo": null               --> Cambiar a bloque logo completo
+  - Sin extension .jsonc             --> Siempre usar .jsonc
+
+TIPS DE DISENO:
+
+  - Si usas bordes (|), usa {valor>22} para alinear a ancho fijo.
+  - Ajusta width (18-27) y height (10-14) para que el logo no se solape.
+  - Prueba siempre con: alterfetch nombre-de-tu-config
+
+================================================================================

@@ -3,6 +3,22 @@
 BASE_DIR="$(dirname "$(realpath "$0")")/presets"
 MODE_FILE="$BASE_DIR/mode.txt"
 
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    echo "set_mode — Cambia el modo de selección de logos"
+    echo ""
+    echo "Uso:"
+    echo "  ./set_mode.sh                Muestra el modo actual"
+    echo "  ./set_mode.sh random         Modo aleatorio (rota cada vez)"
+    echo "  ./set_mode.sh <archivo>      Fija un logo específico"
+    echo "  ./set_mode.sh -h | --help    Muestra esta ayuda"
+    echo ""
+    echo "Ejemplos:"
+    echo "  ./set_mode.sh random"
+    echo "  ./set_mode.sh 1.png"
+    echo "  ./set_mode.sh arch.txt"
+    exit 0
+fi
+
 if [ -z "$1" ]; then
     echo "Uso: ./set_mode.sh [random | archivo_fijo]"
     echo "Ejemplos:"
